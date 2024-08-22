@@ -33,7 +33,7 @@
 		transitionElement = document.getElementById('transition');
 
 		if (transitionElement) {
-			await wait(400);
+			await wait(200);
 			transitionElement.style.height = '100dvh';
 			transitionElement.style.transition = 'height 0.5s ease';
 			transitionElement.offsetHeight;

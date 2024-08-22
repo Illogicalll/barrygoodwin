@@ -3,6 +3,7 @@
 	import folder from '$lib/assets/folder.png';
 	import home from '$lib/assets/home.png';
 	import search from '$lib/assets/search.png';
+	export let data;
 
 	let width = 0;
 	function handleResize() {
@@ -17,7 +18,7 @@
 	let searchElement: HTMLElement | null = null;
 	let iconElement: HTMLElement | null = null;
 	let textboxElement: HTMLElement | null = null;
-	let cellCount: number = 15;
+	let cellCount: number = Object.keys(data['projects']).length;
 	let selectedIndex: number = 0;
 	let cellWidth: number = 0;
 	let currentFolder: number = 0;
@@ -45,7 +46,7 @@
 			cells.forEach((cell, i) => {
 				const angleDifference = Math.abs((selectedIndex - i) % cellCount) * theta;
 				const opacity = Math.cos(angleDifference * (Math.PI / 180));
-				cell.style.opacity = `${Math.max(opacity, 0.2)}`;
+				cell.style.opacity = `${Math.max(opacity, 0.07)}`;
 			});
 		}
 	}
@@ -209,22 +210,11 @@
 </div>
 <div class="container">
 	<div class="scene">
+		<p class="folder-title">{data['projects'][currentFolder]['title']}</p>
 		<div class="carousel">
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
-			<div class="carousel__cell"><img alt="folder" src={folder} /></div>
+			{#each data['projects'] as project}
+				<div class="carousel__cell"><img alt="folder" src={folder} /></div>
+			{/each}
 		</div>
 	</div>
 	<div class="carousel-options">
@@ -290,7 +280,7 @@
 		top: 0;
 		left: 0;
 		display: flex;
-		gap: 40px;
+		gap: 70px;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
@@ -302,6 +292,12 @@
 		height: 230px;
 		margin: 0px auto;
 		perspective: 2000px;
+	}
+
+	.folder-title {
+		color: black;
+		text-align: center;
+		margin-top: -10px;
 	}
 
 	.carousel {
@@ -385,7 +381,7 @@
 
 	img {
 		width: 200px;
-		margin-left: -7px;
+		margin-left: 0px;
 		user-select: none;
 	}
 
